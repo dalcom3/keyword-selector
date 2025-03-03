@@ -32,9 +32,18 @@ export default function KeywordSelector() {
         setSelectedKeywords(keywords);
     };
 
+    const resetSelection = () => {
+        setSelectedCategories([]);
+        setSelectedKeywords({});
+    };
+
     return (
         <div className="p-4 max-w-md mx-auto text-center">
             <h2 className="text-xl font-bold mb-4">카테고리 선택</h2>
+            <div className="mb-4 text-lg font-semibold">
+                <p>첫 번째 카테고리: {selectedCategories[0] || "선택되지 않음"}</p>
+                <p>두 번째 카테고리: {selectedCategories[1] || "선택되지 않음"}</p>
+            </div>
             <div className="grid grid-cols-2 gap-2 mb-4">
                 {Object.keys(categories).map((category) => (
                     <button
@@ -47,11 +56,17 @@ export default function KeywordSelector() {
                 ))}
             </div>
             <button
-                className="bg-green-500 text-white p-2 rounded-lg mt-2"
+                className="bg-green-500 text-white p-2 rounded-lg mt-2 mr-2"
                 onClick={generateKeywords}
                 disabled={selectedCategories.length !== 2}
             >
                 키워드 선택하기
+            </button>
+            <button
+                className="bg-red-500 text-white p-2 rounded-lg mt-2"
+                onClick={resetSelection}
+            >
+                다시하기
             </button>
             <div className="mt-4">
                 {Object.entries(selectedKeywords).map(([category, keyword]) => (
